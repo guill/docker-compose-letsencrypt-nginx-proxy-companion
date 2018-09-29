@@ -302,6 +302,9 @@ server {
 	include /etc/nginx/vhost.d/default;
 	{{ end }}
 
+	location /robots.txt {
+	  alias /etc/nginx/html/robots.txt;
+	}
 	location / {
 		{{ if eq $proto "uwsgi" }}
 		include uwsgi_params;
@@ -349,6 +352,9 @@ server {
 	include /etc/nginx/vhost.d/default;
 	{{ end }}
 
+	location /robots.txt {
+	  alias /etc/nginx/html/robots.txt;
+	}
 	location / {
 		{{ if eq $proto "uwsgi" }}
 		include uwsgi_params;
