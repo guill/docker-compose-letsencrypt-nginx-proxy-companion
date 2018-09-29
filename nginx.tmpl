@@ -143,7 +143,12 @@ server {
 	listen [::]:80;
 	{{ end }}
 	access_log /var/log/nginx/access.log vhost;
-	return 503;
+	location /robots.txt {
+	  alias /etc/nginx/html/robots.txt;
+	}
+	location / {
+	  return 503;
+	}
 }
 
 {{ if (and (exists "/etc/nginx/certs/default.crt") (exists "/etc/nginx/certs/default.key")) }}
@@ -154,7 +159,12 @@ server {
 	listen [::]:443 ssl http2;
 	{{ end }}
 	access_log /var/log/nginx/access.log vhost;
-	return 503;
+	location /robots.txt {
+	  alias /etc/nginx/html/robots.txt;
+	}
+	location / {
+	  return 503;
+	}
 
 	ssl_session_cache shared:SSL:50m;
 	ssl_session_tickets off;
@@ -370,7 +380,12 @@ server {
 	listen [::]:443 ssl http2 {{ $default_server }};
 	{{ end }}
 	access_log /var/log/nginx/access.log vhost;
-	return 500;
+	location /robots.txt {
+	  alias /etc/nginx/html/robots.txt;
+	}
+	location / {
+	  return 500;
+	}
 
 	ssl_certificate /etc/nginx/certs/default.crt;
 	ssl_certificate_key /etc/nginx/certs/default.key;
